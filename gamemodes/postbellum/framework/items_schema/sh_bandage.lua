@@ -25,11 +25,13 @@ function ITEM:OnUse(player, itemEntity)
 		1,
 		function()
 			if IsValid(player) then
-				if player:Health() <= 40 and math.random(1, 6) == 1 then
+				if player:Health() <= 40 and math.random(1, 4) == 1 then
 					player:SetCharacterData("diseases", "slow_deathinjection")
 
 					local pitch = player:GetCharacterData("Pitch") or 0
 					player:EmitSound("ambient/voices/citizen_beaten" .. math.random(1, 5) .. ".wav", 75, 100 + pitch)
+				elseif player:Health() <= 40 and math.random(1, 4) == 1 then
+					player:SetCharacterData("diseases", "fever")
 				end
 			end
 		end
