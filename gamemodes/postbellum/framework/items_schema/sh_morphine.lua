@@ -20,6 +20,21 @@ function ITEM:OnUse(player, itemEntity)
 
 	player:SetHealth( math.Clamp( player:Health() + Schema:GetHealAmount(player, 0.5), 0, player:GetMaxHealth() ) );
 	Clockwork.plugin:Call("PlayerHealed", player, player, self);
+
+	local charKey = player:GetCharacterKey()
+	timer.Simple(
+	    300,
+	    function()
+	        if IsValid(player) and player:Alive() and player:GetCharacterKey() == charKey then
+	        	player:BoostAttribute(self.name, ATB_STAMINA, -25, 300);
+	        	player:BoostAttribute(self.name, ATB_AGILITY, -20, 300);
+	        	player:BoostAttribute(self.name, ATB_ACROBATICS, -23, 300);
+	        	player:BoostAttribute(self.name, ATB_ENDURANCE, -10, 300);
+	        	player:SetCharacterData("Stamina", 10);
+	        end
+	    end
+	)
+
 end;
 
 -- Called when a player drops the item.
